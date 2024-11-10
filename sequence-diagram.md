@@ -1,3 +1,4 @@
+```mermaid
 sequenceDiagram
     participant U as Usuario
     participant AG as API Gateway
@@ -15,3 +16,4 @@ sequenceDiagram
     CS-->>U: Retorna Confirmação
     
     Note over CS,DB: Tolerância a 5% de perda em picos
+```
