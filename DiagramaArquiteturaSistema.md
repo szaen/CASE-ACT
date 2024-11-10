@@ -1,3 +1,4 @@
+```mermaid
 graph TD
     subgraph "Frontend"
         UI[Interface do Usuário]
@@ -38,3 +39,4 @@ graph TD
     LS --> P
     CS --> P
     P --> G
+    ```
