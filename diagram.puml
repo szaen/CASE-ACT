@@ -1,0 +1,34 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Arquitetura Alvo - Diagrama de Contêineres
+
+' Definindo os atores principais
+Person(user, "Usuário", "Cliente ou funcionário do sistema")
+System_Boundary(bankingSystem, "Sistema Bancário") {
+
+    Container(apiGateway, "API Gateway", "Gerencia as solicitações e direciona para os serviços")
+    Container(authService, "Serviço de Autenticação", "Verifica permissões e autentica usuários")
+    Container(transactionService, "Serviço de Lançamentos", "Processa débitos e créditos")
+    Container(consolidationService, "Serviço de Consolidação", "Gera o saldo diário consolidado")
+    ContainerDb(dbTransactions, "Banco de Dados de Lançamentos", "Armazena dados das transações")
+    ContainerDb(dbConsolidated, "Banco de Dados Consolidado", "Armazena saldos diários consolidados")
+    Container(queue, "Message Broker", "Garante resiliência e desacoplamento entre os serviços")
+    Container(monitoring, "Monitoramento & Observabilidade", "Centraliza logs e métricas")
+
+}
+
+' Definindo as conexões entre os componentes
+Rel(user, apiGateway, "Usa para acessar o sistema")
+Rel(apiGateway, authService, "Verifica autenticação e permissões")
+Rel(apiGateway, transactionService, "Direciona para o serviço de lançamentos")
+Rel(transactionService, dbTransactions, "Armazena transações")
+Rel(transactionService, queue, "Envia mensagens assíncronas")
+Rel(queue, consolidationService, "Recebe mensagens para consolidação")
+Rel(consolidationService, dbConsolidated, "Armazena saldos consolidados")
+Rel(consolidationService, monitoring, "Envia métricas de processamento")
+Rel(transactionService, monitoring, "Envia métricas de transações")
+Rel(dbTransactions, monitoring, "Relata status do banco de dados de lançamentos")
+Rel(dbConsolidated, monitoring, "Relata status do banco de dados consolidado")
+
+@enduml

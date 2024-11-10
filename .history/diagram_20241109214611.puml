@@ -1,0 +1,37 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
+
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+' Defina o sistema e atores principais
+Person(customer, "Cliente", "Usuário do sistema bancário")
+Person(employee, "Funcionário", "Funcionário do banco")
+
+System_Boundary(bankingSystem, "Sistema Bancário") {
+    System(apiGateway, "API Gateway", "Gerencia as solicitações dos clientes")
+    System(authService, "Serviço de Autenticação", "Autentica os usuários")
+    System(transactionService, "Serviço de Lançamentos", "Processa débitos e créditos")
+    System(reportingService, "Serviço de Relatórios", "Gera relatórios financeiros")
+    SystemDb(dbTransactions, "Banco de Dados de Lançamentos", "Armazena informações de lançamentos")
+}
+
+' Defina as conexões entre os elementos
+Rel(customer, apiGateway, "Usa para acessar o sistema")
+Rel(apiGateway, authService, "Verifica autenticação")
+Rel(apiGateway, transactionService, "Envia solicitações de lançamento")
+Rel(transactionService, dbTransactions, "Armazena dados de lançamento")
+Rel(transactionService, reportingService, "Envia dados para consolidação de relatórios")
+
+' Configurações de estilo (opcional)
+UpdateElementStyle(customer, $bgColor="lightblue", $fontColor="black")
+UpdateElementStyle(employee, $bgColor="lightgreen", $fontColor="black")
+UpdateElementStyle(apiGateway, $bgColor="orange", $fontColor="black")
+UpdateElementStyle(transactionService, $bgColor="lightgrey", $fontColor="black")
+UpdateElementStyle(dbTransactions, $bgColor="skyblue", $fontColor="black")
+UpdateElementStyle(reportingService, $bgColor="purple", $fontColor="white")
+
+@enduml
