@@ -2,7 +2,7 @@ package com.example.lancamentosservice.service;
 
 import com.example.lancamentosservice.Lancamento;
 import com.example.lancamentosservice.repository.LancamentoRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

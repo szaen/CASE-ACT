@@ -2,7 +2,7 @@ package com.example.lancamentosservice.controller;
 
 import com.example.lancamentosservice.Lancamento;
 import com.example.lancamentosservice.service.LancamentoService;
-//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +16,7 @@ public class LancamentoController {
 
     private final LancamentoService lancamentoService;
 
+    @Autowired
     public LancamentoController(LancamentoService lancamentoService) {
         this.lancamentoService = lancamentoService;
     }
